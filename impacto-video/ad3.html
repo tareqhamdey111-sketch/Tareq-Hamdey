@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:Cairo;font-weight:400;src:url(node_modules/@fontsource/cairo/files/cairo-arabic-400-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:700;src:url(node_modules/@fontsource/cairo/files/cairo-arabic-700-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:900;src:url(node_modules/@fontsource/cairo/files/cairo-arabic-900-normal.woff2)}
+:root{--ink:#14213d;--paper:#fffaf2;--coral:#ff6b57;--sun:#ffc933;--sky:#4b8bff;--vio:#7c5cff;--mint:#2fd3a0;--mut:#6b7590}
+*{margin:0;padding:0;box-sizing:border-box}
+::-webkit-scrollbar{display:none}
+html,body{width:1080px;height:1920px;overflow:hidden;font-family:Cairo,sans-serif;background:#000}
+.scene{direction:rtl;position:absolute;inset:0;opacity:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;color:var(--ink)}
+.bgW{background:var(--paper)}
+.bgC{background:var(--coral);color:#fff}
+.bgS{background:var(--sun)}
+.bgB{background:var(--sky);color:#fff}
+.bgV{background:var(--vio);color:#fff}
+.blob{position:absolute;border-radius:50%}
+/* progress */
+.prog{position:absolute;top:90px;left:0;right:0;display:flex;justify-content:center;gap:18px;direction:ltr}
+.prog i{width:120px;height:16px;border-radius:8px;background:#ffffff55}
+.prog i.on{background:#fff}
+.bgS .prog i{background:#14213d33}.bgS .prog i.on{background:var(--ink)}
+/* type */
+.num{font-weight:900;font-size:420px;line-height:1;margin-top:170px;direction:ltr}
+.q{font-weight:900;font-size:104px;line-height:1.3;padding:0 70px}
+.hint{font-weight:700;font-size:46px;opacity:.85;margin-top:24px}
+.h1{font-weight:900;font-size:130px;line-height:1.25;padding:0 60px}
+.h1 em{font-style:normal;color:var(--coral)}
+.card{background:#fff;color:var(--ink);border-radius:56px;box-shadow:0 30px 0 #14213d18;padding:50px}
+/* timer */
+.timer{position:absolute;top:180px;left:70px;width:170px;height:170px}
+.timer svg{width:170px;height:170px;transform:rotate(-90deg)}
+.timer .t{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:80px}
+/* persons */
+.row{display:flex;gap:26px;justify-content:center;direction:ltr}
+.pp{width:120px;position:relative;height:190px}
+.pp:before{content:"";position:absolute;left:30px;top:0;width:60px;height:60px;border-radius:50%;background:var(--c)}
+.pp:after{content:"";position:absolute;left:5px;top:76px;width:110px;height:114px;border-radius:55px 55px 14px 14px;background:var(--c)}
+.pp.q{--c:#dfe3ee}
+.pp.q b{position:absolute;left:0;right:0;top:86px;text-align:center;font-weight:900;font-size:80px;color:#9aa3bb;z-index:2}
+/* coin */
+.coin{width:330px;height:330px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe27a,#ffb400);border:18px solid #e29a00;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:170px;color:#8a5a00;margin:0 auto}
+.tag{display:inline-block;background:var(--ink);color:#fff;font-weight:900;font-size:64px;border-radius:40px;padding:10px 50px;margin-top:40px}
+/* bars */
+.bars{display:flex;gap:30px;align-items:flex-end;justify-content:center;height:430px;direction:rtl}
+.bw{width:170px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.bar{width:150px;border-radius:26px 26px 0 0;background:var(--b)}
+.bw .m{font-weight:900;font-size:64px;margin-bottom:10px;height:76px}
+.lb{font-weight:700;font-size:36px;margin-top:14px;color:var(--mut)}
+/* chips */
+.logo{font-weight:900;font-size:170px;direction:ltr;letter-spacing:3px}
+.logo span{color:var(--coral)}
+.btn{background:var(--mint);color:#06392b;font-weight:900;font-size:86px;padding:36px 110px;border-radius:100px;box-shadow:0 18px 0 #1a9c76}
+.rep{width:920px;text-align:right}
+.rep .r{display:flex;align-items:center;gap:24px;font-weight:700;font-size:44px;padding:20px 0;white-space:nowrap;border-bottom:3px dashed #dcd5c6}
+.rep .r i{width:60px;height:60px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-style:normal;font-weight:900;font-size:38px}
+/* caption */
+#cap{position:absolute;left:50px;right:50px;bottom:190px;direction:rtl;text-align:center;font-weight:900;font-size:62px;line-height:1.45;color:#fff;background:var(--ink);border-radius:32px;padding:22px 36px;opacity:0;z-index:10;box-shadow:0 10px 0 #0004}
+#cap em{font-style:normal;color:var(--sun)}
+.note{position:absolute;bottom:70px;left:0;right:0;font-size:30px;opacity:.7;z-index:5;color:var(--ink);text-align:center}
+.barp{position:absolute;left:0;bottom:0;height:12px;background:var(--ink);z-index:11}
+</style>
+</head>
+<body>
+
+<!-- 0 hook -->
+<div class="scene bgW" id="s0">
+  <div class="blob" style="width:520px;height:520px;background:var(--sun);right:-160px;top:-120px"></div>
+  <div class="blob" style="width:380px;height:380px;background:var(--mint);left:-140px;top:420px"></div>
+  <div class="blob" style="width:300px;height:300px;background:var(--sky);right:-90px;bottom:300px"></div>
+  <div class="num" id="n0" style="color:var(--coral);position:relative">٣</div>
+  <div class="h1" id="h0" style="position:relative">أسئلة بس…<br><em>لو مجاوبتش</em> على واحد<br>فلوسك بتضيع</div>
+</div>
+
+<!-- Q1 -->
+<div class="scene bgC" id="s1">
+  <div class="prog"><i class="on"></i><i></i><i></i></div>
+  <div class="blob" style="width:600px;height:600px;background:#ffffff1f;left:-200px;bottom:-100px"></div>
+  <div class="timer"><svg viewBox="0 0 170 170"><circle cx="85" cy="85" r="72" fill="none" stroke="#ffffff44" stroke-width="16"/><circle id="r1" cx="85" cy="85" r="72" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-dasharray="452.4" stroke-dashoffset="0"/></svg><div class="t" id="t1">3</div></div>
+  <div class="num" style="font-size:300px;margin-top:230px">١</div>
+  <div class="q" id="q1">كام عميل جه<br>من الإعلان ده؟</div>
+  <div class="card" style="margin-top:70px;width:900px;position:relative">
+    <div class="row" id="pl"></div>
+    <div class="hint" style="color:var(--mut);opacity:1;margin-top:20px">مش لايكات… عملاء</div>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="scene bgS" id="s2">
+  <div class="prog"><i class="on"></i><i class="on"></i><i></i></div>
+  <div class="blob" style="width:600px;height:600px;background:#ffffff40;right:-220px;bottom:-140px"></div>
+  <div class="timer"><svg viewBox="0 0 170 170"><circle cx="85" cy="85" r="72" fill="none" stroke="#14213d33" stroke-width="16"/><circle id="r2" cx="85" cy="85" r="72" fill="none" stroke="#14213d" stroke-width="16" stroke-linecap="round" stroke-dasharray="452.4" stroke-dashoffset="0"/></svg><div class="t" id="t2">3</div></div>
+  <div class="num" style="font-size:300px;margin-top:230px">٢</div>
+  <div class="q" id="q2">العميل الواحد<br>بيكلفك كام؟</div>
+  <div class="card" style="margin-top:70px;width:900px">
+    <div class="coin" id="coin">ج</div>
+    <div class="tag" id="tag">؟؟ جنيه للعميل</div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="scene bgB" id="s3">
+  <div class="prog"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+  <div class="blob" style="width:600px;height:600px;background:#ffffff22;left:-200px;bottom:-140px"></div>
+  <div class="timer"><svg viewBox="0 0 170 170"><circle cx="85" cy="85" r="72" fill="none" stroke="#ffffff44" stroke-width="16"/><circle id="r3" cx="85" cy="85" r="72" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-dasharray="452.4" stroke-dashoffset="0"/></svg><div class="t" id="t3">3</div></div>
+  <div class="num" style="font-size:300px;margin-top:230px">٣</div>
+  <div class="q" id="q3" style="font-size:96px">أنهي منصة بتكسّبك…<br>وأنهي تقفلها؟</div>
+  <div class="card" style="margin-top:60px;width:940px;padding:40px 30px">
+    <div class="bars" id="bars"></div>
+  </div>
+</div>
+
+<!-- result -->
+<div class="scene bgV" id="s4">
+  <div class="blob" style="width:700px;height:700px;background:#ffffff18;right:-250px;top:-200px"></div>
+  <div class="blob" style="width:420px;height:420px;background:#ff6b5740;left:-140px;bottom:340px"></div>
+  <div style="font-weight:900;font-size:300px;line-height:1;margin-top:250px;direction:ltr" id="qm">؟ ؟ ؟</div>
+  <div class="h1" style="color:#fff;font-size:118px;margin-top:20px" id="h4">لو مش عارف ولا إجابة…<br><span style="color:var(--sun)">فلوسك بلا قياس</span></div>
+</div>
+
+<!-- CTA -->
+<div class="scene bgW" id="s5">
+  <div class="blob" style="width:520px;height:520px;background:var(--sun);left:-180px;top:-140px"></div>
+  <div class="blob" style="width:360px;height:360px;background:var(--sky);right:-120px;top:520px"></div>
+  <div class="logo" style="margin-top:120px;position:relative">IMPACT<span>O</span></div>
+  <div style="font-weight:700;font-size:56px;margin-top:6px;position:relative">وكالة تسويق رقمي · مصر والخليج</div>
+  <div class="card rep" style="margin-top:30px;position:relative;padding:16px 46px">
+    <div class="r"><i style="background:var(--coral)">1</i>عدد العملاء وتكلفة كل واحد</div>
+    <div class="r"><i style="background:var(--sun);color:var(--ink)">2</i>نسبة اللي بقوا عملاء فعليين</div>
+    <div class="r" style="border:0"><i style="background:var(--sky)">3</i>أنهي منصة تكسّب وأنهي نوقفها</div>
+  </div>
+  <div class="btn" style="margin-top:40px;position:relative">ابعت واتساب</div>
+  <div style="font-weight:900;font-size:76px;margin-top:22px;direction:ltr;position:relative">01006073553</div>
+</div>
+
+<div id="cap"></div>
+<div class="note" id="note">أرقام وأمثلة توضيحية · النتائج تختلف حسب النشاط والسوق والميزانية</div>
+<div class="barp" id="bar"></div>
+
+<script>
+const DUR=22;
+const ease=x=>1-Math.pow(1-x,3);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const scenes=[['s0',0,3.2],['s1',3.2,7.2],['s2',7.2,11.2],['s3',11.2,15.2],['s4',15.2,18.6],['s5',18.6,22]];
+const S={};scenes.forEach(([id,a])=>S[id]=a);
+const caps=[
+ [0.3,3.1,'٣ أسئلة بس… لو مجاوبتش على واحد منهم <em>فلوسك بتضيع</em>.'],
+ [3.3,7.1,'واحد: كام <em>عميل</em> جه من الإعلان ده بالظبط؟ مش لايكات.'],
+ [7.3,11.1,'اتنين: العميل الواحد <em>بيكلفك كام</em>؟'],
+ [11.3,15.1,'تلاتة: أنهي منصة <em>بتكسّبك</em>… وأنهي لازم تقفلها؟'],
+ [15.3,18.5,'لو مش عارف ولا إجابة… يبقى فلوسك <em>بتتصرف من غير قياس</em>.'],
+ [18.7,22,'في إمباكتو بنجاوبلك على التلاتة <em>في تقرير بسيط</em>. ابعتلنا واتساب.']
+];
+// persons
+const cols=['#ff6b57','#ffc933','#4b8bff','#2fd3a0'];
+document.getElementById('pl').innerHTML=[0,1,2,3].map(i=>`<div class="pp" id="pp${i}" style="--c:${cols[i]}"></div>`).join('')+'<div class="pp q" id="ppq"><b>؟</b></div>';
+// bars
+const bd=[['ميتا',0.62,'#7c5cff'],['جوجل',0.95,'#2fd3a0'],['تيك توك',0.45,'#ffc933'],['سناب',0.2,'#ff6b57']];
+document.getElementById('bars').innerHTML=bd.map(([n,h,c],i)=>`<div class="bw"><div class="m" id="mk${i}"></div><div class="bar" id="br${i}" style="--b:${c};height:${h*100*0.78}%"></div><div class="lb">${n}</div></div>`).join('');
+let last=-1;
+function timer(id,tid,c){ // c seconds since scene start, countdown 3.3 -> 0.3
+  const p=clamp((c-0.2)/3.2);
+  document.getElementById(id).setAttribute('stroke-dashoffset',(452.4*p).toFixed(1));
+  document.getElementById(tid).textContent=Math.max(1,3-Math.floor(p*3));
+}
+function render(t){
+  for(const [id,a,b] of scenes){
+    const el=document.getElementById(id);
+    const fin=clamp((t-a)/0.25), fout=clamp((b-t)/0.2);
+    el.style.opacity=(t>=a&&t<b)?Math.min(fin,fout):0;
+    el.style.transform=`translateY(${(1-ease(fin))*60}px)`;
+  }
+  // hook pop
+  const np=ease(clamp((t-0.1)/0.5));
+  document.getElementById('n0').style.transform=`scale(${0.3+0.7*np}) rotate(${(1-np)*-12}deg)`;
+  const hp=ease(clamp((t-0.6)/0.5));
+  document.getElementById('h0').style.opacity=hp;
+  document.getElementById('h0').style.transform=`translateY(${(1-hp)*40}px)`;
+  // Q1
+  let c=t-S.s1;timer('r1','t1',c);
+  [0,1,2,3].forEach(i=>{const e=document.getElementById('pp'+i);const p=ease(clamp((c-0.5-i*0.2)/0.3));e.style.opacity=p;e.style.transform=`translateY(${(1-p)*40}px)`});
+  const qp=0.6+0.4*Math.abs(Math.sin(t*6));
+  document.getElementById('ppq').style.opacity=clamp((c-1.4)/0.3)*qp;
+  // Q2
+  c=t-S.s2;timer('r2','t2',c);
+  const cp=ease(clamp((c-0.3)/0.6));
+  document.getElementById('coin').style.transform=`rotateY(${(1-cp)*720}deg) scale(${0.5+0.5*cp})`;
+  document.getElementById('tag').style.opacity=ease(clamp((c-1.2)/0.4));
+  // Q3
+  c=t-S.s3;timer('r3','t3',c);
+  bd.forEach(([n,h],i)=>{
+    const p=ease(clamp((c-0.4-i*0.18)/0.6));
+    document.getElementById('br'+i).style.transform=`scaleY(${p})`;
+    document.getElementById('br'+i).style.transformOrigin='bottom';
+    const m=document.getElementById('mk'+i);
+    m.textContent=(c>2.2)?(i===1?'✓':(i===3?'✕':'')):'';
+    m.style.color=i===1?'#1a9c76':'#e5483a';
+  });
+  // result
+  c=t-S.s4;
+  const rp=ease(clamp(c/0.5));
+  document.getElementById('qm').style.transform=`scale(${0.5+0.5*rp})`;
+  document.getElementById('qm').style.opacity=rp;
+  // captions
+  const cap=document.getElementById('cap');
+  const cur=caps.findIndex(([a,b])=>t>=a&&t<b);
+  if(cur!==last){cap.innerHTML=cur>=0?caps[cur][2]:'';last=cur}
+  if(cur>=0){const [a,b]=caps[cur];cap.style.opacity=Math.min(clamp((t-a)/0.2),clamp((b-t)/0.2))}else cap.style.opacity=0;
+  document.getElementById('bar').style.width=(t/DUR*1080)+'px';
+}
+window.render=render;render(0);
+</script>
+</body>
+</html>
