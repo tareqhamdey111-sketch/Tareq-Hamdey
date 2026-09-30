@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:Cairo;font-weight:400;src:url(node_modules/@fontsource/cairo/files/cairo-arabic-400-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:700;src:url(node_modules/@fontsource/cairo/files/cairo-arabic-700-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:900;src:url(node_modules/@fontsource/cairo/files/cairo-arabic-900-normal.woff2)}
+:root{--cream:#efe4d3;--cream2:#d9c9b2;--ink:#17120f;--ac:#e8452c;--ac2:#ff9a3c;--dark:#1b0f0e}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;font-family:Cairo,sans-serif;background:#000}
+.scene{position:absolute;inset:0;opacity:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px;text-align:center}
+.light{background:linear-gradient(180deg,var(--cream),var(--cream2));color:var(--ink)}
+.darkbg{background:radial-gradient(700px 900px at 50% 0%,#7a1f18 0%,var(--dark) 70%);color:#fff5ea}
+.big{font-weight:900;font-size:118px;line-height:1.35}
+.mid{font-weight:700;font-size:64px;line-height:1.5}
+.sm{font-weight:400;font-size:44px;line-height:1.6;opacity:.75}
+.ac{color:var(--ac)}
+.w{display:inline-block;opacity:0}
+/* search bars */
+.sb{width:900px;height:130px;border-radius:70px;background:#fff;box-shadow:0 20px 50px #0002;margin:22px 0;display:flex;align-items:center;padding:0 46px;font-weight:700;font-size:50px;gap:24px;color:var(--ink);text-align:right}
+.sb .ic{width:64px;height:64px;border-radius:50%;background:var(--ac);flex:none;position:relative}
+.sb .ic:after{content:"";position:absolute;width:22px;height:22px;border:6px solid #fff;border-radius:50%;left:15px;top:14px}
+.sb .tx{flex:1;white-space:nowrap;overflow:hidden}
+.caret{display:inline-block;width:5px;height:56px;background:var(--ac);vertical-align:middle;margin-right:6px}
+/* lineup */
+.lineup{position:relative;width:900px;height:620px;background:repeating-linear-gradient(0deg,#ffffff14 0 4px,transparent 4px 90px),#0009;border-radius:24px;margin-top:40px;overflow:hidden}
+.man{position:absolute;bottom:0;width:230px;height:520px}
+.man .h{position:absolute;left:65px;top:20px;width:100px;height:120px;border-radius:50%;background:#d9c9b2}
+.man .b{position:absolute;left:10px;top:140px;width:210px;height:380px;border-radius:90px 90px 0 0;background:#111}
+.man .c{position:absolute;left:25px;top:250px;width:180px;height:120px;background:#fff5ea;color:#17120f;font-weight:900;font-size:36px;line-height:1.2;padding-top:18px;border-radius:6px}
+/* billboard */
+.bb{width:860px;height:460px;background:#f4ead9;color:var(--ink);border:14px solid #2a1a17;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:80px;line-height:1.35;padding:30px;box-shadow:0 30px 80px #000a}
+.pole{width:34px;height:520px;background:linear-gradient(90deg,#2a1a17,#5a3a33,#2a1a17)}
+/* stats */
+.row{display:flex;gap:26px;margin-top:70px;direction:rtl}
+.card{background:#fff;border-radius:34px;padding:40px 20px;width:290px;box-shadow:0 20px 50px #0002}
+.card .n{font-weight:900;font-size:92px;color:var(--ac);direction:ltr;line-height:1.1}
+.card .l{font-size:34px;line-height:1.4;margin-top:8px;color:#4a3d34}
+.logo{font-weight:900;font-size:170px;direction:ltr;letter-spacing:3px;color:var(--ink)}
+.logo span{color:var(--ac)}
+/* services */
+.chips{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;width:940px;margin-top:40px}
+.chip{background:#fff5ea14;border:2px solid #fff5ea33;border-radius:60px;padding:22px 44px;font-weight:700;font-size:52px}
+.btn{margin-top:60px;background:linear-gradient(90deg,var(--ac),var(--ac2));color:#1a0d05;font-weight:900;font-size:76px;padding:30px 90px;border-radius:100px}
+.bar{position:absolute;left:0;bottom:0;height:10px;background:linear-gradient(90deg,var(--ac),var(--ac2));z-index:9}
+</style>
+</head>
+<body>
+
+<!-- 1: three search bars -->
+<div class="scene light" id="s1">
+  <div class="sb"><div class="ic"></div><div class="tx" id="q1"></div></div>
+  <div class="sb"><div class="ic"></div><div class="tx" id="q2"></div></div>
+  <div class="sb"><div class="ic"></div><div class="tx" id="q3"></div></div>
+</div>
+
+<!-- 2: kinetic -->
+<div class="scene light" id="s2">
+  <div class="big" id="k2"></div>
+  <div class="sm" style="margin-top:50px" id="k2b"></div>
+</div>
+
+<!-- 3: lineup -->
+<div class="scene darkbg" id="s3">
+  <div class="mid" id="k3"></div>
+  <div class="lineup">
+    <div class="man" style="right:40px"><div class="h"></div><div class="b"></div><div class="c">حملة<br>١</div></div>
+    <div class="man" style="right:335px"><div class="h"></div><div class="b"></div><div class="c">حملة<br>٢</div></div>
+    <div class="man" style="right:630px"><div class="h"></div><div class="b"></div><div class="c">حملة<br>٣</div></div>
+  </div>
+  <div class="big ac" style="font-size:96px;margin-top:40px" id="k3b"></div>
+</div>
+
+<!-- 4: billboard -->
+<div class="scene darkbg" id="s4">
+  <div class="mid" style="margin-bottom:50px" id="k4"></div>
+  <div class="bb" id="bb">الإنفاق كبر<br>والقياس ما لحقه</div>
+  <div class="pole"></div>
+</div>
+
+<!-- 5: brand + stats -->
+<div class="scene light" id="s5">
+  <div class="logo">IMPACT<span>O</span></div>
+  <div class="big" style="font-size:96px">إمباكتو</div>
+  <div class="mid" style="margin-top:20px">نحوّل إنفاقك إلى عملاء<br><span class="ac">تستطيع عدّهم</span></div>
+  <div class="row">
+    <div class="card"><div class="n" id="n1">0</div><div class="l">عميل محتمل<br>في دراسات منشورة</div></div>
+    <div class="card"><div class="n" id="n2">0</div><div class="l">أعلى عائد<br>على الإنفاق</div></div>
+    <div class="card"><div class="n" id="n3">0</div><div class="l">أقل تكلفة<br>لعميل محتمل</div></div>
+  </div>
+</div>
+
+<!-- 6: services -->
+<div class="scene darkbg" id="s6">
+  <div class="big" style="font-size:96px" id="k6">ست خدمات<br><span class="ac">وهدف واحد</span></div>
+  <div class="chips">
+    <div class="chip">التسويق الإلكتروني</div><div class="chip">التسويق العقاري</div>
+    <div class="chip">مواقع ووردبريس</div><div class="chip">متاجر إلكترونية</div>
+    <div class="chip">منصات تعليمية</div><div class="chip">تطبيقات موبايل</div>
+  </div>
+  <div class="sm" style="margin-top:50px;color:#fff5ea">مصر · السعودية · الإمارات · الكويت · عُمان · قطر</div>
+</div>
+
+<!-- 7: CTA -->
+<div class="scene light" id="s7">
+  <div class="big" style="font-size:100px">الهدف قبل القناة<br>القياس قبل الإنفاق<br><span class="ac">الصراحة قبل المبيعات</span></div>
+  <div class="btn">ابدأ مشروعك</div>
+  <div class="mid" style="margin-top:50px;direction:ltr">impacto0.com</div>
+  <div class="sm" style="direction:ltr">WhatsApp 01006073553</div>
+</div>
+
+<div class="bar" id="bar"></div>
+
+<script>
+const DUR=30;
+const ease=x=>1-Math.pow(1-x,3);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const scenes=[['s1',0,4.2],['s2',4.2,8],['s3',8,12.6],['s4',12.6,16.6],['s5',16.6,22.4],['s6',22.4,26.4],['s7',26.4,30]];
+const start={};scenes.forEach(([id,a])=>start[id]=a);
+
+function words(id,text,t0,gap=0.16){
+  const el=document.getElementById(id);
+  if(!el.dataset.built){
+    el.innerHTML=text.split(' ').map(w=>w.startsWith('*')?`<span class="w ac">${w.slice(1)}</span>`:`<span class="w">${w}</span>`).join(' ');
+    el.dataset.built=1;
+  }
+  [...el.children].forEach((s,i)=>{
+    const p=ease(clamp((tNow-t0-i*gap)/0.35));
+    s.style.opacity=p;s.style.transform=`translateY(${(1-p)*40}px)`;
+  });
+}
+function typing(id,text,t0,cps=16){
+  const n=Math.floor(clamp((tNow-t0)*cps,0,text.length));
+  const done=n>=text.length;
+  const blink=Math.floor(tNow*2)%2===0;
+  document.getElementById(id).innerHTML=text.slice(0,n)+((!done||blink)&&tNow>=t0?'<span class="caret"></span>':'');
+}
+let tNow=0;
+function render(t){
+  tNow=t;
+  for(const [id,a,b] of scenes){
+    const el=document.getElementById(id);
+    const fin=clamp((t-a)/0.35), fout=clamp((b-t)/0.3);
+    el.style.opacity=(t>=a&&t<b)?Math.min(fin,fout):0;
+    el.style.transform=`scale(${1.04-0.04*ease(fin)})`;
+  }
+  const s=id=>t-start[id];
+  typing('q1','كم عميلًا جاء من هذا الإعلان؟',0.3);
+  typing('q2','أي حملة جلبت المبيعات؟',1.5);
+  typing('q3','ليه الزيارات كتير والطلبات قليلة؟',2.5);
+
+  words('k2','أغلب الميزانيات *تُصرف بلا قياس',4.4,0.2);
+  words('k2b','حملات لا أحد يعرف أيّها جلب عميلًا ومواقع جميلة لا تبيع',5.6,0.1);
+
+  words('k3','عميلك يعرف أي إعلان أتى به؟',8.2,0.15);
+  const mans=document.querySelectorAll('.man');
+  mans.forEach((m,i)=>{
+    const p=ease(clamp((t-8.8-i*0.35)/0.5));
+    m.style.transform=`translateY(${(1-p)*200}px)`;m.style.opacity=p;
+  });
+  words('k3b','وأنت؟ ما تعرف!',10.8,0.18);
+
+  words('k4','أنفقت أكثر…',12.8,0.2);
+  const bp=ease(clamp((t-13.4)/0.6));
+  const bb=document.getElementById('bb');bb.style.opacity=bp;bb.style.transform=`translateY(${(1-bp)*-120}px) rotate(${(1-bp)*-4}deg)`;
+
+  const c=t-start.s5;
+  document.getElementById('n1').textContent=Math.round(740*ease(clamp((c-1.2)/1.6)));
+  document.getElementById('n2').textContent=(6.8*ease(clamp((c-1.6)/1.6))).toFixed(1)+'x';
+  document.getElementById('n3').textContent='$'+(24.7*ease(clamp((c-2)/1.6))).toFixed(1);
+
+  const chips=document.querySelectorAll('.chip');
+  chips.forEach((ch,i)=>{const p=ease(clamp((t-start.s6-0.5-i*0.25)/0.4));ch.style.opacity=p;ch.style.transform=`translateY(${(1-p)*40}px)`});
+
+  document.getElementById('bar').style.width=(t/DUR*1080)+'px';
+}
+window.render=render;render(0);
+</script>
+</body>
+</html>
