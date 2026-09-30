@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:Cairo;font-weight:400;src:url(node_modules/@fontsource/cairo/files/cairo-arabic-400-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:700;src:url(node_modules/@fontsource/cairo/files/cairo-arabic-700-normal.woff2)}
+@font-face{font-family:Cairo;font-weight:900;src:url(node_modules/@fontsource/cairo/files/cairo-arabic-900-normal.woff2)}
+:root{--cream:#efe4d3;--cream2:#d9c9b2;--ink:#17120f;--ac:#e8452c;--ac2:#ff9a3c;--ok:#1f9d55}
+*{margin:0;padding:0;box-sizing:border-box}
+::-webkit-scrollbar{display:none}
+html,body{width:1080px;height:1920px;overflow:hidden;font-family:Cairo,sans-serif;background:#000}
+.scene{direction:rtl;position:absolute;inset:0;opacity:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:0 70px;text-align:center;background:linear-gradient(180deg,var(--cream),var(--cream2));color:var(--ink)}
+/* receipt */
+.receipt{position:relative;width:820px;margin-top:250px;background:#fffdf8;padding:60px 56px 420px;box-shadow:0 30px 70px #0003;
+  -webkit-mask:radial-gradient(circle 16px at 16px 100%,#0000 98%,#000) bottom/32px 51% repeat-x,linear-gradient(#000 0 0) top/100% 51% no-repeat}
+.receipt h1{font-weight:900;font-size:62px;line-height:1.3;border-bottom:4px dashed #b9ad9a;padding-bottom:28px;margin-bottom:24px}
+.receipt h1 small{display:block;font-weight:400;font-size:34px;color:#7a6c5c}
+.rl{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:56px;padding:22px 0;border-bottom:2px dashed #d6ccbb;opacity:0}
+.rl b{font-weight:900;direction:ltr}
+.rl.q b{color:var(--ac)}
+.stamp{position:absolute;left:120px;top:870px;border:14px solid var(--ac);color:var(--ac);font-weight:900;font-size:130px;padding:6px 40px;border-radius:24px;opacity:0;transform:rotate(-12deg)}
+/* checklist scene */
+.title{font-weight:900;font-size:96px;line-height:1.3;margin-top:330px}
+.ck{width:900px;background:#fff;border-radius:30px;padding:34px 44px;margin-top:26px;display:flex;align-items:center;gap:30px;font-weight:700;font-size:56px;box-shadow:0 18px 44px #0002;text-align:right;opacity:0}
+.ck i{width:76px;height:76px;flex:none;border-radius:50%;background:var(--ok);position:relative}
+.ck i:after{content:"";position:absolute;left:24px;top:12px;width:20px;height:38px;border:solid #fff;border-width:0 9px 9px 0;transform:rotate(45deg)}
+/* proof scene */
+.proof{width:900px;background:#17120f;color:#fff5ea;border-radius:40px;padding:60px 40px;margin-top:80px;box-shadow:0 30px 80px #0005}
+.proof .tag{font-size:38px;opacity:.7;margin-bottom:24px}
+.proof .grid{display:flex;justify-content:space-around;gap:10px}
+.proof .n{font-weight:900;font-size:120px;color:var(--ac2);direction:ltr;line-height:1.1}
+.proof .l{font-size:36px;opacity:.85;margin-top:6px}
+.disc{font-size:30px;opacity:.6;margin-top:36px;line-height:1.5}
+/* cta */
+.logo{font-weight:900;font-size:170px;direction:ltr;letter-spacing:3px;margin-top:300px}
+.logo span{color:var(--ac)}
+.btn{margin-top:60px;background:linear-gradient(90deg,var(--ac),var(--ac2));color:#1a0d05;font-weight:900;font-size:80px;padding:34px 90px;border-radius:100px}
+/* captions */
+#cap{position:absolute;left:50px;right:50px;bottom:250px;direction:rtl;text-align:center;font-weight:900;font-size:62px;line-height:1.45;color:#fff;
+  background:#17120fd9;border-radius:28px;padding:22px 34px;opacity:0;z-index:10}
+#cap em{font-style:normal;color:var(--ac2)}
+.bar{position:absolute;left:0;bottom:0;height:10px;background:linear-gradient(90deg,var(--ac),var(--ac2));z-index:11}
+</style>
+</head>
+<body>
+
+<div class="scene" id="s1">
+  <div class="receipt" id="rc">
+    <h1>كشف حساب إعلاناتك<small>مثال توضيحي</small></h1>
+    <div class="rl" id="r1"><span>الميزانية</span><b>30,000 جنيه</b></div>
+    <div class="rl" id="r2"><span>مشاهدات</span><b>480,000</b></div>
+    <div class="rl" id="r3"><span>إعجابات</span><b>12,300</b></div>
+    <div class="rl q" id="r4"><span>عملاء فعليين</span><b id="qq">؟؟؟</b></div>
+    <div class="stamp" id="st">بلا قياس</div>
+  </div>
+</div>
+
+<div class="scene" id="s2">
+  <div class="title">قبل أول جنيه…<br><span style="color:var(--ac)">نظبط التتبّع</span></div>
+  <div class="ck" id="c1"><i></i><span>بكسل ميتا وتاج جوجل</span></div>
+  <div class="ck" id="c2"><i></i>تتبّع واتساب والنماذج</div>
+  <div class="ck" id="c3"><i></i>كل عميل له مصدر معروف</div>
+</div>
+
+<div class="scene" id="s3">
+  <div class="title" style="font-size:88px;margin-top:300px">عملاء <span style="color:var(--ac)">تقدر تعدّهم</span></div>
+  <div class="proof">
+    <div class="tag">دراسة حالة منشورة · شركة تطوير عقاري · Google</div>
+    <div class="grid">
+      <div><div class="n" id="p1">0</div><div class="l">عميل محتمل</div></div>
+      <div><div class="n" id="p2">0</div><div class="l">عائد على الإنفاق</div></div>
+      <div><div class="n" id="p3">0</div><div class="l">تكلفة العميل</div></div>
+    </div>
+    <div class="disc">النتائج من دراسات حالة منشورة وتختلف حسب النشاط والسوق والميزانية.</div>
+  </div>
+</div>
+
+<div class="scene" id="s4">
+  <div class="logo">IMPACT<span>O</span></div>
+  <div style="font-weight:700;font-size:60px;margin-top:10px">وكالة تسويق رقمي · مصر والخليج</div>
+  <div class="btn">ابعت واتساب</div>
+  <div style="font-weight:900;font-size:76px;margin-top:50px;direction:ltr">01006073553</div>
+  <div style="font-weight:400;font-size:44px;margin-top:10px;direction:ltr;opacity:.7">impacto0.com</div>
+</div>
+
+<div id="cap"></div>
+<div class="bar" id="bar"></div>
+
+<script>
+const DUR=20;
+const ease=x=>1-Math.pow(1-x,3);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const scenes=[['s1',0,8.5],['s2',8.5,12.6],['s3',12.6,16.6],['s4',16.6,20]];
+const caps=[
+ [0.3,3.2,'صرفت <em>٣٠ ألف جنيه</em> على إعلانات… جابولك كام عميل؟'],
+ [3.2,7.6,'مشاهدات كتير… لايكات كتير… بس العملاء؟ <em>ولا حد عارف!</em>'],
+ [8.6,12.5,'في إمباكتو بنظبط التتبّع <em>قبل أول جنيه</em>… عشان تعرف كل عميل جه منين.'],
+ [12.7,16.5,'وفي دراسات حالة منشورة: عملاء <em>تقدر تعدّهم</em>، مش أرقام في الهوا.'],
+ [16.7,20,'ابعتلنا واتساب… ونقولك <em>بصراحة</em> نقدر نوصلك لإيه.']
+];
+let last=-1;
+function render(t){
+  for(const [id,a,b] of scenes){
+    const el=document.getElementById(id);
+    const fin=clamp((t-a)/0.3), fout=clamp((b-t)/0.25);
+    el.style.opacity=(t>=a&&t<b)?Math.min(fin,fout):0;
+  }
+  // receipt lines
+  [['r1',0.9],['r2',3.4],['r3',4.3],['r4',5.2]].forEach(([id,t0])=>{
+    const el=document.getElementById(id),p=ease(clamp((t-t0)/0.35));
+    el.style.opacity=p;el.style.transform=`translateY(${(1-p)*30}px)`;
+  });
+  document.getElementById('qq').style.opacity=(t>5.6&&t<7&&Math.floor(t*4)%2)?0.2:1;
+  const rc=document.getElementById('rc');
+  const rp=ease(clamp(t/0.7));
+  rc.style.transform=`translateY(${(1-rp)*900}px)`;
+  const sp=ease(clamp((t-6.9)/0.25));
+  const st=document.getElementById('st');
+  st.style.opacity=sp;st.style.transform=`rotate(-12deg) scale(${1.8-0.8*sp})`;
+  // checklist
+  ['c1','c2','c3'].forEach((id,i)=>{
+    const el=document.getElementById(id),p=ease(clamp((t-9.2-i*0.9)/0.4));
+    el.style.opacity=p;el.style.transform=`translateX(${(1-p)*-120}px)`;
+  });
+  // proof
+  const c=t-12.6;
+  document.getElementById('p1').textContent=Math.round(210*ease(clamp((c-0.5)/1.5)));
+  document.getElementById('p2').textContent=(4.5*ease(clamp((c-0.8)/1.5))).toFixed(1)+'x';
+  document.getElementById('p3').textContent='$'+(24.8*ease(clamp((c-1.1)/1.5))).toFixed(1);
+  // captions
+  const cap=document.getElementById('cap');
+  const cur=caps.findIndex(([a,b])=>t>=a&&t<b);
+  if(cur!==last){cap.innerHTML=cur>=0?caps[cur][2]:'';last=cur}
+  if(cur>=0){const [a,b]=caps[cur];cap.style.opacity=Math.min(clamp((t-a)/0.2),clamp((b-t)/0.2))}else cap.style.opacity=0;
+  document.getElementById('bar').style.width=(t/DUR*1080)+'px';
+}
+window.render=render;render(0);
+</script>
+</body>
+</html>
